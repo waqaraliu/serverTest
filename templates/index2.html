@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Multiple Choice</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="/static/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+<!--===============================================================================================-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+   	<style>
+/* Paste this css to your style sheet file or under head tag */
+/* This only works with JavaScript, 
+if it's not present, don't show loader */
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url(https://j2n9a3i8.stackpathcdn.com/wp-content/uploads/2014/08/Preloader_11.gif) center no-repeat #fff;
+}
+	</style>
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+<script>
+//paste this code under the head tag or in a separate js file.
+	// Wait for window load
+	$(window).load(function() {
+		// Animate loader off screen
+		$(".se-pre-con").fadeOut("slow");;
+	});
+    </script> 
+    
+</head>
+<body>
+	
+	<div class="se-pre-con"></div>
+	<div class="container-login100" style="background-image: url('/static/images/bg-01.jpg');">
+		<div class="container-login100">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
+				<form class="login100-form validate-form">
+
+                    <div class="text-center p-t-57 p-b-20">
+                        
+					<span class="txt1">
+						Experience Added
+					</span>
+				</div>
+                    <div class="text-center p-t-57 p-b-20">
+                        <div class="input100-color">
+                            <span class="txt1">
+                                {{currOption}} Selected
+                            </span>
+                            <div class="color-box" style="background-color: {{optColor}}"></div>
+                            <!-- Replace "#FF850A" to change the color -->
+                        </div>
+                    </div>
+                    <div class="text-center p-t-57 p-b-20">
+					<span class="txt1">
+						{{dataCount}} Responses
+					</span>
+				</div>
+                    <div>
+                    <canvas id="chart" width="600" height="400"></canvas>
+            </div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	
+                    <script>
+                        // get bar chart canvas
+                        //var mychart = document.getElementById("chart").getContext("2d");
+                        //var mychart = document.getElementById("chart");
+                        
+                        new Chart(document.getElementById("chart"), {
+                            type: 'pie',
+                            data: {
+                              labels : ["option 1", "option 2", "option 3", "option 4", "option 5", "option 6", "option 7"
+                              ],
+                              datasets: [{
+                                label: "answer",
+                                backgroundColor: ["#FDB45C", "#46BFBD", "#F7464A", "#FEDCBA", "#ABCDEF", "#DDDDDD", "#ABCABC"],
+                                data : [
+                                  {% for item in values %}
+                                    {{ item }},
+                                  {% endfor %}
+                                ]
+                              }]
+                            },
+                                options: {
+                                    title: {
+                                        display: true,
+                                        text: 'Total people responded'
+                                      },
+                                    legend: {
+                                        labels: {
+                                            fontSize: 10,
+                                            boxWidth: 10
+                                        }
+                                    }
+                                }
+                        });
+
+                    </script>
+</body>
+</html>

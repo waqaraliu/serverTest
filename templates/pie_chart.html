@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ title }}</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+</head>
+
+<body>
+    <h1>{{ title }}</h1>
+
+    <canvas id="chart" width="400" height="200"></canvas>
+    <script>
+        new Chart(document.getElementById("chart"), {
+            type: 'pie',
+            data: {
+              labels : [
+                {% for item in labels %}
+                 "{{ item }}",
+                {% endfor %}
+	          ],
+              datasets: [{
+                label: "Population (millions)",
+                backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#c45850","#c45850"],
+                data : [
+                  {% for item in values %}
+                    {{ item }},
+                  {% endfor %}
+                ]
+              }]
+            },
+            options: {
+              title: {
+                display: true,
+                text: 'Total people responded'
+              }
+            }
+        });
+
+    </script>
+</body>
+</html>
